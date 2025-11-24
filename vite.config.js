@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import copyRootJson from './plugins/copyRootJson.js'
 
 export default defineConfig({
   server: {
@@ -7,19 +8,17 @@ export default defineConfig({
     open: true,
     cors: true
   },
-  preview: {
-    host: true,
-    port: 3001,
-    open: true
-  },
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
+    emptyOutDir: true,
     rollupOptions: {
       input: {
         main: './index.html'
       }
-    }
+    },
+    copyPublicDir: true
   },
-  plugins: []
+  plugins: [
+    copyRootJson()
+  ]
 })

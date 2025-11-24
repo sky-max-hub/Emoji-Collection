@@ -5,9 +5,10 @@
   "main": "index.html",
   "type": "module",
   "scripts": {
-    "build": "echo '静态网站，无需构建'",
     "dev": "vite --host",
+    "build": "vite build",
     "serve": "vite preview --host",
+    "deploy": "npm run build && wrangler pages deploy dist",
     "r2:generate-index": "node generate-gallery-index-r2.js",
     "r2:generate-previews": "node generate-webp-thumbnail-r2.js"
   },

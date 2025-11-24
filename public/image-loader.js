@@ -498,7 +498,7 @@ class ImageLoader {
             loadedMsg.style.margin = '20px 0';
             loadedMsg.style.padding = '10px';
             loadedMsg.style.color = 'var(--text-color)';
-            loadedMsg.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+            // loadedMsg.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
             loadedMsg.style.borderRadius = '5px';
             loadedMsg.style.animation = 'fadeIn 1s';
             document.querySelector('footer').before(loadedMsg);

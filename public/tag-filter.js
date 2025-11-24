@@ -51,7 +51,7 @@ class TagFilter {
             const tagButton = document.createElement('button');
             tagButton.className = 'tag';
             tagButton.textContent = category;
-            tagButton.style.marginLeft = '7px';
+            tagButton.style.margin = '5px';
             tagButton.addEventListener('click', () => {
                 this.selectTag(tagButton, category);
                 centerTagButton(tagButton);

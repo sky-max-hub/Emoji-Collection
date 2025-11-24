@@ -1,0 +1,32 @@
+{
+  "name": "emoji-collection-static",
+  "version": "1.0.0",
+  "description": "个人Emoji集合展示网站，支持Cloudflare Pages部署",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "build": "echo '静态网站，无需构建'",
+    "dev": "vite --host",
+    "serve": "vite preview --host",
+    "r2:generate-index": "node generate-gallery-index-r2.js",
+    "r2:generate-previews": "node generate-webp-thumbnail-r2.js"
+  },
+  "keywords": [
+    "gallery",
+    "portfolio",
+    "photography",
+    "static",
+    "cloudflare-pages"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.1",
+    "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.879.0",
+    "dotenv": "^17.2.1",
+    "sharp": "^0.34.3"
+  }
+}

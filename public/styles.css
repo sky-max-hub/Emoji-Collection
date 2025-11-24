@@ -383,7 +383,7 @@ body.dark .tag-filter-container {
     margin: 20px 0;
     padding: 10px;
     color: #777;
-    background-color: rgba(0, 0, 0, 0.05);
+    /* background-color: rgba(0, 0, 0, 0.05); */
     border-radius: 5px;
     animation: fadeInOut 1.5s infinite alternate;
 }

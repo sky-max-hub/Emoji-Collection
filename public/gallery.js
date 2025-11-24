@@ -41,9 +41,10 @@ class Gallery {
 
     initComponents() {
         const galleryElement = document.getElementById('gallery');
+        const galleryContainerElement = document.getElementById('gallery-container');
 
         // 初始化图片加载器
-        this.imageLoader = new ImageLoader(galleryElement, this.dataLoader);
+        this.imageLoader = new ImageLoader(galleryElement, galleryContainerElement, this.dataLoader);
 
         // 初始化标签筛选器
         this.tagFilter = new TagFilter((tag) => {

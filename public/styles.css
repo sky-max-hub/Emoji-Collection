@@ -372,7 +372,7 @@ body {
 }
 
 /* 优化暗黑模式下垂直标签栏的背景 */
-body.dark .tag-filter-vertical {
+body.dark .tag-filter-container {
     background-color: rgba(255, 255, 255, 0.1); /* 使用半透明白色背景，降低突兀感 */
     /* 可根据需要调整内边距、圆角等其他样式 */
 }

@@ -8,17 +8,17 @@ class TagFilter {
 
     // 创建标签筛选器
     createTagFilter(categories) {
-        this.tagContainer = document.createElement('div');
-        this.tagContainer.className = 'tag-filter-vertical';
+        this.tagContainer = document.getElementById('tag-filter-container');
+        // this.tagContainer.className = 'tag-filter-vertical';
         
         // 使用文档片段提高性能
         const fragment = document.createDocumentFragment();
         
         // 添加鼠标滚轮事件，实现鼠标悬停在标签栏上时通过滚轮垂直滚动标签栏
-        this.tagContainer.addEventListener('wheel', (event) => {
-            event.preventDefault();
-            this.tagContainer.scrollTop += event.deltaY;
-        });
+        // this.tagContainer.addEventListener('wheel', (event) => {
+        //     event.preventDefault();
+        //     this.tagContainer.scrollTop += event.deltaY;
+        // });
     
         // 辅助函数：将选中的标签滚动到中间
         const centerTagButton = (btn) => {
@@ -51,6 +51,7 @@ class TagFilter {
             const tagButton = document.createElement('button');
             tagButton.className = 'tag';
             tagButton.textContent = category;
+            tagButton.style.marginLeft = '7px';
             tagButton.addEventListener('click', () => {
                 this.selectTag(tagButton, category);
                 centerTagButton(tagButton);
@@ -62,8 +63,8 @@ class TagFilter {
         this.tagContainer.appendChild(fragment);
     
         // 插入到header和gallery之间
-        const header = document.querySelector('header');
-        header.insertAdjacentElement('afterend', this.tagContainer);
+        // const header = document.querySelector('header');
+        // header.insertAdjacentElement('afterend', this.tagContainer);
     
         // 利用 IntersectionObserver 监听各个标签按钮是否完全可见
         const observer = new IntersectionObserver((entries) => {

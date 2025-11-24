@@ -33,7 +33,7 @@ class TagFilter {
         const allTag = document.createElement('button');
         allTag.className = 'tag';
         allTag.textContent = 'All';
-        allTag.style.backgroundColor = '#4CAF50'; // 绿色主题色
+        allTag.style.backgroundColor = '#7C3AED'; // 绿色主题色
         allTag.style.color = '#fff';
         allTag.addEventListener('click', () => {
             this.selectTag(allTag, 'all');
@@ -92,7 +92,7 @@ class TagFilter {
         });
         
         // 设置当前标签的选中样式
-        selectedButton.style.backgroundColor = '#4CAF50';
+        selectedButton.style.backgroundColor = '#7C3AED';
         selectedButton.style.color = '#fff';
         
         this.currentTag = tag;

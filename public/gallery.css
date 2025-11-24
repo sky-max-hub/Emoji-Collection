@@ -238,7 +238,8 @@ body.dark #exif-info {
 }
 
 .tag:hover {
-    background: #45a049; /* 更深的绿色 */
+    background: #632EBD; /* 更深的绿色 */
+    color: #fff;
 }
 
 body.dark .tag-filter {
@@ -251,7 +252,7 @@ body.dark .tag {
 }
 
 body.dark .tag:hover {
-    background: #388E3C; /* 深色模式下的绿色 */
+    background: #7C3AED; /* 深色模式下的绿色 */
 }
 
 .tag-filter-vertical {

@@ -5,8 +5,8 @@
   "main": "index.html",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "cd dist && npx serve",
+    "dev": "cd dist && npx serve",
+    "build": "vite build",
     "serve": "vite preview --host",
     "deploy": "npm run build && wrangler pages deploy dist",
     "r2:generate-index": "node generate-gallery-index-r2.js",

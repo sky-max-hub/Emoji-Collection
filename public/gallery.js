@@ -71,10 +71,10 @@ class Gallery {
         }
 
         const path = window.location.pathname;
-        const tagFromUrl = path.substring(1); // 移除开头的斜杠
+        let tagFromUrl = path.substring(1); // 移除开头的斜杠
 
         console.log('处理URL参数:', { path, tagFromUrl });
-
+        tagFromUrl = decodeURIComponent(tagFromUrl);
         if (tagFromUrl && tagFromUrl !== '') {
             const categories = this.dataLoader.getCategories();
             console.log('可用标签:', categories);

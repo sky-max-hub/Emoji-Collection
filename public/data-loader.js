@@ -14,7 +14,7 @@ class DataLoader {
         this.loading = true;
         
         try {
-            const response = await fetch('gallery-index.json');
+            const response = await fetch('./gallery-index.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

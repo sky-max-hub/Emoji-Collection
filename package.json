@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
+    "build": "cd dist && npx serve",
     "serve": "vite preview --host",
     "deploy": "npm run build && wrangler pages deploy dist",
     "r2:generate-index": "node generate-gallery-index-r2.js",

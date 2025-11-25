@@ -5,7 +5,7 @@
   "main": "index.html",
   "type": "module",
   "scripts": {
-    "dev": "cd dist && npx serve",
+    "dev": "vite build && cd dist && npx serve",
     "build": "vite build",
     "serve": "vite preview --host",
     "deploy": "npm run build && wrangler pages deploy dist",

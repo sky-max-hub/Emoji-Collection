@@ -71,10 +71,9 @@ class Gallery {
         }
 
         const path = window.location.pathname;
-        let tagFromUrl = path.substring(1); // 移除开头的斜杠
-
+        let tagFromUrl = new URLSearchParams(location.search);
+        tagFromUrl = decodeURIComponent(tagFromUrl.get('tag'));
         console.log('处理URL参数:', { path, tagFromUrl });
-        tagFromUrl = decodeURIComponent(tagFromUrl);
         if (tagFromUrl && tagFromUrl !== '') {
             const categories = this.dataLoader.getCategories();
             console.log('可用标签:', categories);
@@ -109,7 +108,7 @@ class Gallery {
                 window.history.pushState({}, '', '/');
             }
         } else {
-            const newUrl = `/${tag}`;
+            const newUrl = `?tag=${tag}`;
             if (window.location.pathname !== newUrl) {
                 console.log('更新URL为:', newUrl);
                 window.history.pushState({}, '', newUrl);

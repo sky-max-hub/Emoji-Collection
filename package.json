@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite build && cd dist && npx serve",
+    "watch": "nodemon --watch public --ext js,ts,html --watch gallery-index.json --exec \"pnpm dev\"",
     "build": "vite build",
     "serve": "vite preview --host",
     "deploy": "npm run build && wrangler pages deploy dist",
@@ -22,6 +23,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^3.1.11",
     "serve": "^14.2.1",
     "vite": "^7.2.4"
   },

@@ -3,6 +3,7 @@ class Gallery {
     constructor() {
         this.dataLoader = new DataLoader();
         this.autoScroll = new AutoScroll();
+        this.imageSelect = new ImageSelect();
         this.tagFilter = null;
         this.imageLoader = null;
         this.isPageLoading = true;

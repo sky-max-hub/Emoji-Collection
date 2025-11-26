@@ -44,18 +44,20 @@ header h1 {
   display: flex;
   align-items: center;
   align-items: baseline;
+  margin-right: 50px;
+  gap: 20px;
   transition: font-size 0.3s ease-in-out;
 }
 
 header a {
   color: white;
   font-size: 1.5em;
-  margin-right: 20px;
   text-decoration: none;
   transition: font-size 0.3s ease-in-out;
 }
 
 header button {
+  padding: 0;
   background: none;
   border: none;
   color: white;
@@ -281,7 +283,7 @@ body.dark .load-original-btn:hover {
   header a {
     font-size: 24px;
   }
-  header button {
+  .header-buttons {
     margin-right: 30px;
   }
 }
@@ -297,7 +299,7 @@ body.dark .load-original-btn:hover {
   header a {
     font-size: 24px;
   }
-  header button {
+  .header-buttons {
     margin-right: 40px;
   }
 }
@@ -313,7 +315,7 @@ body.dark .load-original-btn:hover {
   header a {
     font-size: 24px;
   }
-  header button {
+  .header-buttons  {
     margin-right: 50px;
   }
 }
@@ -371,11 +373,6 @@ body {
     z-index: 1;
 }
 
-/* 优化暗黑模式下垂直标签栏的背景 */
-body.dark .tag-filter-container {
-    background-color: rgba(255, 255, 255, 0.1); /* 使用半透明白色背景，降低突兀感 */
-    /* 可根据需要调整内边距、圆角等其他样式 */
-}
 
 /* 加载指示器样式 */
 #temp-loading-msg {

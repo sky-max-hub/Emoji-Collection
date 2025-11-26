@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite build && cd dist && npx serve",
-    "watch": "nodemon --watch public --ext js,ts,html --watch gallery-index.json --exec \"pnpm dev\"",
+    "watch": "nodemon --watch public --ext js,ts,html,css --watch gallery-index.json --exec \"pnpm dev\"",
     "build": "vite build",
     "serve": "vite preview --host",
     "deploy": "npm run build && wrangler pages deploy dist",

@@ -16,12 +16,18 @@
       <a href="/" style="text-decoration: none; color: inherit;">Emoji-Collection</a>
     </h1>
     <div class="header-buttons">
+      <button id="image-select" aria-label="选择图片">
+        <img src="assets/export.svg" alt="Image Select" id="image-select-icon" />
+      </button>
       <a id="github-link" href="https://github.com/sky-max-hub/Emoji-Collection" target="_blank">
         <img src="assets/github.svg" alt="GitHub 仓库链接" aria-label="访问 GitHub 仓库" />
       </a>
       <button id="theme-toggle" aria-label="切换深色/浅色主题">
         <img src="assets/brightness_4.svg" alt="Toggle Theme" id="theme-icon" />
       </button>
+      <a id="read-me" href="/README.html">
+        <img src="assets/document.svg" alt="网站说明" aria-label="访问网站说明" />
+      </a>
     </div>
   </header>
   <div id="loading"></div>
@@ -42,6 +48,7 @@
   <script src="data-loader.js"></script>
   <script src="tag-filter.js"></script>
   <script src="image-loader.js"></script>
+  <script src="image-select.js"></script>
   <script src="auto-scroll.js"></script>
   <script src="layout.js"></script>
   <script src="gallery.js"></script>

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import copyRootJson from './plugins/copyRootJson.js'
+import convertReadme from './plugins/convertReadme.js'
 
 export default defineConfig({
   server: {
@@ -19,6 +20,7 @@ export default defineConfig({
     copyPublicDir: true
   },
   plugins: [
-    copyRootJson()
+    copyRootJson(),
+    convertReadme()
   ]
 })

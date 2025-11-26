@@ -4,9 +4,9 @@ Emoji-Collection
 </h2>
 
 <p align="center">
-  <a href="https://Emoji-Collection.wiki-power.com/"><img src="https://img.shields.io/badge/Demo-site-t?&style=flat-square" alt="Demo"></a>
-  <a href="https://github.com/linyuxuanlin/Emoji-Collection/blob/main/LICENSE"><img src="https://img.shields.io/github/license/linyuxuanlin/Emoji-Collection?style=flat-square" alt="许可证"></a>
-  <img src="https://img.shields.io/github/repo-size/linyuxuanlin/Emoji-Collection?style=flat-square&color=328657" alt="存储库大小">
+  <a href="https://emoji.sky123.top/"><img src="https://img.shields.io/badge/Demo-site-t?&style=flat-square" alt="Demo"></a>
+  <a href="https://github.com/sky-max-hub/Emoji-Collection/blob/main/LICENSE"><img src="https://img.shields.io/github/license/sky-max-hub/Emoji-Collection?style=flat-square" alt="许可证"></a>
+  <img src="https://img.shields.io/github/repo-size/sky-max-hub/Emoji-Collection?style=flat-square&color=328657" alt="存储库大小">
 </p>
 
 <p align="center">

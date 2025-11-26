@@ -103,13 +103,13 @@ class Gallery {
         console.log('更新URL为标签:', tag);
 
         if (tag === 'all') {
-            if (window.location.pathname !== '/') {
+            if (window.location.search !== '') {
                 console.log('移除URL中的标签参数');
                 window.history.pushState({}, '', '/');
             }
         } else {
             const newUrl = `?tag=${tag}`;
-            if (window.location.pathname !== newUrl) {
+            if (window.location.search !== newUrl) {
                 console.log('更新URL为:', newUrl);
                 window.history.pushState({}, '', newUrl);
             }

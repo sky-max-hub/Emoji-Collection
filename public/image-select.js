@@ -4,11 +4,14 @@ class ImageSelect {
         this.imageSelected = false;
         this.imageSelectedCount = 0;
         this.imageSelectAllButton = document.getElementById('image-select-all');
+        this.exportSelectedButton = document.getElementById('export-selected');
         // 存储选中的图片
         this.selectedImages = new Set();
 
         // 添加全选按钮事件监听器
         this.setupSelectAllButton();
+        // 添加导出按钮事件监听器
+        this.setupExportButton();
     }
 
     // 设置全选按钮事件
@@ -16,6 +19,15 @@ class ImageSelect {
         if (this.imageSelectAllButton) {
             this.imageSelectAllButton.addEventListener('click', () => {
                 this.toggleSelectAll();
+            });
+        }
+    }
+
+    // 设置导出按钮事件
+    setupExportButton() {
+        if (this.exportSelectedButton) {
+            this.exportSelectedButton.addEventListener('click', () => {
+                this.exportSelectedImages();
             });
         }
     }
@@ -39,12 +51,13 @@ class ImageSelect {
 
     // 全选所有图片
     selectAll() {
-        console.log('全选所有图片');
         // 获取当前页面所有图片
         const allImages = document.querySelectorAll('.gallery img');
-
+        console.log('全选所有图片', allImages);
         allImages.forEach(img => {
-            const imageUrl = img.dataset.original;
+            const selectImage = {}
+            selectImage.name = img.alt;
+            selectImage.url = img.currentSrc;
             // 处理所有图片，确保它们都被选中
             // 找到对应的选中按钮并直接设置选中状态
             const selectButtonContainer = img.parentNode.querySelector('.select-button-container');
@@ -53,8 +66,8 @@ class ImageSelect {
                 if (selectButton) {
                     // 直接添加选中类和更新状态
                     selectButton.classList.add('selected');
-                    this.selectedImages.add(imageUrl);
-                    console.log('图片被选中:', imageUrl);
+                    this.selectedImages.add(selectImage);
+                    console.log('图片被选中:', selectImage);
                 }
             }
         });
@@ -87,13 +100,16 @@ class ImageSelect {
             selectButton.classList.toggle('selected');
 
             // 更新选中状态
-            const imageUrl = img.dataset.original;
+            const selectImage = {}
+            selectImage.name = img.alt;
+            selectImage.url = img.currentSrc;
+            
             if (selectButton.classList.contains('selected')) {
-                this.selectedImages.add(imageUrl);
-                console.log('图片被选中:', imageUrl);
+                this.selectedImages.add(selectImage);
+                console.log('图片被选中:', selectImage);
             } else {
-                this.selectedImages.delete(imageUrl);
-                console.log('图片取消选中:', imageUrl);
+                this.selectedImages.delete(selectImage);
+                console.log('图片取消选中:', selectImage);
             }
 
             // 更新选中计数和全选按钮图标
@@ -116,7 +132,7 @@ class ImageSelect {
     // 清除所有选中状态
     clearSelection() {
         console.log('清除所有选中状态');
-        
+
         // 移除所有选中按钮的选中状态
         document.querySelectorAll('.select-button.selected').forEach(button => {
             button.classList.remove('selected');
@@ -152,6 +168,69 @@ class ImageSelect {
                 icon.src = 'assets/check_unselected.svg';
             }
         }
+
+        // 根据是否有选中的图片显示/隐藏导出按钮
+        if (this.exportSelectedButton) {
+            if (this.selectedImages.size > 0) {
+                this.exportSelectedButton.style.display = 'block';
+            } else {
+                this.exportSelectedButton.style.display = 'none';
+            }
+        }
+    }
+
+    // 导出选中的图片
+    exportSelectedImages() {
+        console.log("选中的图片:", this.selectedImages);
+
+        if (this.selectedImages.size === 0) {
+            return;
+        }
+
+        // 创建符合include.json格式的对象
+        const exportData = [{
+            "name": this.getTagFromUrl(),
+            "type": "image",
+            "items": []
+        }];
+
+        const selectedImages = Array.from(this.selectedImages);
+
+        selectedImages.forEach(image => {
+            exportData[0].items.push({
+                "key": `${image.name}`,
+                "val": image.url
+            });
+        });
+
+        // 转换为格式化的JSON字符串
+        const exportText = JSON.stringify(exportData, null, 2);
+
+        // 创建Blob对象
+        const blob = new Blob([exportText], { type: 'application/json;charset=utf-8' });
+
+        // 创建下载链接
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `emoji-${Date.now()}.json`;
+
+        // 触发下载
+        document.body.appendChild(a);
+        a.click();
+
+        // 清理
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+    }
+
+    // 获取URL中的tag参数值，不存在则返回'all'
+    getTagFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tag = urlParams.get('tag');
+        return tag || 'all';
     }
 }
 

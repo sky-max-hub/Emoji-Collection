@@ -340,13 +340,23 @@ class ImageLoader {
                     // 添加到已加载集合
                     this.loadedImageUrls.add(imageUrl);
 
+                    // 为图片创建容器
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'img-container';
+                    imgContainer.style.position = 'relative';
+                    imgContainer.appendChild(img);
+
                     // 添加到最短列
                     const shortestColumnIndex = this.getShortestColumn();
-                    this.columnElements[shortestColumnIndex].appendChild(img);
+                    this.columnElements[shortestColumnIndex].appendChild(imgContainer);
 
                     // 设置加载动画
                     setTimeout(() => {
                         img.classList.add('loaded');
+                        // 添加选中按钮
+                        if (window.imageSelectInstance) {
+                            window.imageSelectInstance.addSelectButton(img);
+                        }
                     }, 10);
 
                     // 更新计数
@@ -643,6 +653,8 @@ class ImageLoader {
             this.classList.remove('hover-active');
         });
     }
+
+
 
     // 筛选图片
     filterImages(tag) {

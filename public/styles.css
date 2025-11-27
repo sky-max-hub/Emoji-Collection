@@ -43,7 +43,6 @@ header h1 {
 .header-buttons {
   display: flex;
   align-items: center;
-  align-items: baseline;
   margin-right: 50px;
   gap: 20px;
   transition: font-size 0.3s ease-in-out;

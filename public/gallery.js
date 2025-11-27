@@ -44,6 +44,9 @@ class Gallery {
         const galleryElement = document.getElementById('gallery');
         const galleryContainerElement = document.getElementById('gallery-container');
 
+        // 初始化图片选择器
+        window.imageSelectInstance = new ImageSelect();
+
         // 初始化图片加载器
         this.imageLoader = new ImageLoader(galleryElement, galleryContainerElement, this.dataLoader);
 

@@ -420,3 +420,73 @@ body.dark .auto-scroll-indicator {
     background: rgba(50, 50, 50, 0.9);
     color: #ccc;
 }
+
+/* 图片容器样式 */
+.img-container {
+    position: relative;
+}
+
+/* 选中按钮容器样式 */
+.select-button-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* 当鼠标悬停在图片上或按钮被选中时显示选中按钮 */
+.img-container:hover .select-button-container,
+.select-button-container:hover,
+.select-button-container:has(.select-button.selected) {
+    opacity: 1;
+}
+
+/* 选中按钮样式 */
+.select-button {
+    width: 26px;
+    height: 26px;
+    border-radius: 30%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid #632EBD;
+    color: #632EBD;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* 选中按钮悬停效果 */
+.select-button:hover {
+    background-color: #632EBD;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* 选中按钮被选中时的样式 */
+.select-button.selected {
+    background-color: #632EBD;
+    color: white;
+}
+
+/* 深色模式下的选中按钮样式 */
+body.dark .select-button {
+    background-color: rgba(50, 50, 50, 0.8);
+    border: 2px solid #7C3AED;
+    color: #7C3AED;
+}
+
+body.dark .select-button:hover {
+    background-color: #7C3AED;
+    color: white;
+}
+
+body.dark .select-button.selected {
+    background-color: #7C3AED;
+    color: white;
+}

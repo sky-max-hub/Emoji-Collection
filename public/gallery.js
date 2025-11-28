@@ -52,6 +52,10 @@ class Gallery {
 
         // 初始化标签筛选器
         this.tagFilter = new TagFilter((tag) => {
+            // 在切换标签前清除当前选中的所有图片
+            if (window.imageSelectInstance) {
+                window.imageSelectInstance.clearSelection();
+            }
             this.imageLoader.filterImages(tag);
             this.updateUrlForTag(tag);
         });
@@ -84,11 +88,19 @@ class Gallery {
 
             if (categories.includes(tagFromUrl)) {
                 console.log('找到匹配的标签:', tagFromUrl);
+                // 在切换标签前清除当前选中的所有图片
+                if (window.imageSelectInstance) {
+                    window.imageSelectInstance.clearSelection();
+                }
                 this.tagFilter.selectTagByValue(tagFromUrl);
                 this.imageLoader.filterImages(tagFromUrl);
             } else {
                 console.log('标签不存在:', tagFromUrl);
                 if (this.tagFilter.getCurrentTag() !== 'all') {
+                    // 在切换标签前清除当前选中的所有图片
+                    if (window.imageSelectInstance) {
+                        window.imageSelectInstance.clearSelection();
+                    }
                     this.tagFilter.selectTagByValue('all');
                     this.imageLoader.filterImages('all');
                 }
@@ -96,6 +108,10 @@ class Gallery {
         } else {
             console.log('URL中没有标签参数，选择All标签');
             if (this.tagFilter.getCurrentTag() !== 'all') {
+                // 在切换标签前清除当前选中的所有图片
+                if (window.imageSelectInstance) {
+                    window.imageSelectInstance.clearSelection();
+                }
                 this.tagFilter.selectTagByValue('all');
                 this.imageLoader.filterImages('all');
             }

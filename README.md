@@ -15,7 +15,7 @@ Emoji-Collection
     </a>
 </p>
 
-**Emoji-Collection** 是一个风格简洁的 **摄影作品展示站**，你只需要将图片存放在免费的 **Cloudflare R2** 上（或其他任意图床），即可在这里展现你的大作。在这里你可以通过 **瀑布流** 的形式浏览图片，也可以 **点开大图** ，查看光圈 / 快门 / ISO 等 **EXIF** 信息。此静态网站基于 Node.js，使用 **Material Design** 风格的 **响应式设计**，支持 **日夜间模式** 切换，在不同的设备上都有不错的视觉效果。
+**Emoji-Collection** 是一个风格简洁的 **图片展示站**，你只需要将图片存放在免费的 **Cloudflare R2** 上（或其他任意图床），即可在这里展现你的收藏。在这里你可以通过 **瀑布流** 的形式浏览图片，也可以 **点开大图** 查看详细信息。此静态网站使用 **Material Design** 风格的 **响应式设计**，支持 **日夜间模式** 切换，在不同的设备上都有不错的视觉效果。
 
 <p align="center">
   <a href="https://dash.cloudflare.com/?to=https://dash.cloudflare.com/pages"><img src="https://img.shields.io/badge/Deploy%20to%20Cloudflare%20Pages-4285F4?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Deploy to Cloudflare Pages"/></a>
@@ -25,18 +25,19 @@ Emoji-Collection
 ## ✨ 一些特性
 
 - 🚀 **静态部署** - 零服务器成本，快速加载
-- 🏷️ **作品分类** - 按摄影主题和地点进行分类展示
-- 📱 **移动端优化** - 完美适配移动设备观片
+- 🏷️ **图片分类** - 按主题和标签进行分类展示
+- 📱 **移动端优化** - 完美适配移动设备浏览
 - 🖼️ **响应式设计** - 自适应布局，支持多种屏幕尺寸
-- 🌙 **深色/浅色主题** - 支持主题切换，优化观片体验
-- ⚡ **懒加载** - 滚动时自动加载更多作品
+- 🌙 **深色/浅色主题** - 支持主题切换，优化浏览体验
+- ⚡ **懒加载** - 滚动时自动加载更多图片
 - 🎯 **自动滚动** - 一键开启自动滚动浏览
 - 🖼️ **预览图优化** - 先加载预览图，点击查看高清原图
 - 🔄 **智能加载** - 预览图缺失时自动加载原图
-- 📸 **EXIF 信息** - 显示光圈、快门、ISO 等摄影参数（未完成）
+- 📸 **EXIF 信息** - 显示光圈、快门、ISO 等拍摄参数（部分功能已禁用）
 - 🌍 **跨平台支持** - 提供 Node.js 脚本，支持所有操作系统
 - 🔗 **图床兼容** - 支持任意图床服务（Cloudflare R2、阿里云 OSS、腾讯云 COS 等）
 - 🎲 **随机展示** - 图片以随机顺序展示，每次刷新都有不同的排列
+- 🖱️ **交互增强** - 支持图片选择、下载和标签筛选功能
 
 ## 🏗️ 项目结构
 
@@ -51,11 +52,12 @@ Emoji-Collection/
 │   ├── gallery.js            # 主画廊逻辑
 │   ├── data-loader.js        # 数据加载模块
 │   ├── tag-filter.js         # 标签筛选模块
-│   ├── image-loader.js       # 图片加载模块
+│   ├── image-loader.js       # 图片加载和布局模块
+│   ├── image-select.js       # 图片选择和下载模块
 │   ├── auto-scroll.js        # 自动滚动模块
 │   └── assets/               # 图标资源
 ├── generate-gallery-index-r2.js   # Node.js图片索引生成脚本
-├── generate-webp-thumbnail-r2.js      # 预览图生成脚本
+├── generate-webp-thumbnail-r2.js  # 预览图生成脚本
 ├── deploy.bat                # Windows部署脚本
 ├── deploy.sh                 # Linux/macOS部署脚本
 ├── _headers                  # Cloudflare Pages 配置
@@ -293,9 +295,10 @@ function buildImageUrls(categoryName, fileName, fileExt) {
 
 项目采用模块化设计，主要模块包括：
 
-- **DataLoader** - 负责从 JSON 文件加载摄影作品数据
-- **TagFilter** - 处理作品分类筛选功能
-- **ImageLoader** - 管理作品加载和布局
+- **DataLoader** - 负责从 JSON 文件加载图片数据
+- **TagFilter** - 处理图片分类筛选功能
+- **ImageLoader** - 管理图片加载和布局
+- **ImageSelect** - 处理图片选择和下载功能
 - **AutoScroll** - 自动滚动功能
 - **Gallery** - 主画廊控制器
 
@@ -323,7 +326,7 @@ function buildImageUrls(categoryName, fileName, fileExt) {
 
 ```css
 :root {
-  --primary-color: #4caf50; /* 主色调 */
+  --primary-color: #7C3AED; /* 主色调 */
   --background-color: #ffffff; /* 背景色 */
   --text-color: #333333; /* 文字颜色 */
 }

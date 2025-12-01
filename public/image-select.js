@@ -26,7 +26,8 @@ class ImageSelect {
     // 设置导出按钮事件
     setupExportButton() {
         if (this.exportSelectedButton) {
-            this.exportSelectedButton.addEventListener('click', () => {
+            this.exportSelectedButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // 阻止事件冒泡
                 this.exportSelectedImages();
             });
         }
@@ -181,11 +182,19 @@ class ImageSelect {
 
     // 导出选中的图片
     exportSelectedImages() {
-        console.log("选中的图片:", this.selectedImages);
+        console.log("导出选中的图片:", this.selectedImages);
 
         if (this.selectedImages.size === 0) {
             return;
         }
+
+        // 防止重复触发
+        if (this.isExporting) {
+            console.log("导出正在进行中，请稍候...");
+            return;
+        }
+
+        this.isExporting = true;
 
         // 创建符合include.json格式的对象
         const exportData = [{
@@ -223,6 +232,7 @@ class ImageSelect {
         setTimeout(() => {
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+            this.isExporting = false; // 重置导出状态
         }, 100);
     }
 

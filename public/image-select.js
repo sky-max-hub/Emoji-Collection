@@ -5,6 +5,7 @@ class ImageSelect {
         this.imageSelectedCount = 0;
         this.imageSelectAllButton = document.getElementById('image-select-all');
         this.exportSelectedButton = document.getElementById('export-selected');
+        this.exportFormatMenu = document.getElementById('export-format-menu');
         // 存储选中的图片
         this.selectedImages = new Set();
 
@@ -12,6 +13,10 @@ class ImageSelect {
         this.setupSelectAllButton();
         // 添加导出按钮事件监听器
         this.setupExportButton();
+        // 添加导出格式菜单事件监听器
+        this.setupExportFormatMenu();
+        // 点击其他地方关闭菜单
+        this.setupOutsideClickListener();
     }
 
     // 设置全选按钮事件
@@ -28,8 +33,67 @@ class ImageSelect {
         if (this.exportSelectedButton) {
             this.exportSelectedButton.addEventListener('click', (e) => {
                 e.stopPropagation(); // 阻止事件冒泡
-                this.exportSelectedImages();
+                this.toggleExportFormatMenu();
             });
+        }
+    }
+
+    // 设置导出格式菜单事件
+    setupExportFormatMenu() {
+        if (this.exportFormatMenu) {
+            this.exportFormatMenu.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const button = e.target.closest('button');
+                if (!button) return;
+
+                const format = button.dataset.format;
+                if (format === 'include') {
+                    this.exportSelectedImages();
+                } else if (format === 'owo') {
+                    this.exportOwoFormat();
+                }
+
+                // 导出后关闭菜单
+                this.hideExportFormatMenu();
+            });
+        }
+    }
+
+    // 点击外部关闭菜单
+    setupOutsideClickListener() {
+        document.addEventListener('click', (e) => {
+            if (this.exportFormatMenu &&
+                this.exportFormatMenu.style.display === 'flex' &&
+                !this.exportFormatMenu.contains(e.target) &&
+                e.target !== this.exportSelectedButton &&
+                !this.exportSelectedButton.contains(e.target)) {
+                this.hideExportFormatMenu();
+            }
+        });
+    }
+
+    // 切换导出格式菜单显示/隐藏
+    toggleExportFormatMenu() {
+        if (this.exportFormatMenu) {
+            if (this.exportFormatMenu.style.display === 'flex') {
+                this.hideExportFormatMenu();
+            } else {
+                this.showExportFormatMenu();
+            }
+        }
+    }
+
+    // 显示菜单
+    showExportFormatMenu() {
+        if (this.exportFormatMenu) {
+            this.exportFormatMenu.style.display = 'flex';
+        }
+    }
+
+    // 隐藏菜单
+    hideExportFormatMenu() {
+        if (this.exportFormatMenu) {
+            this.exportFormatMenu.style.display = 'none';
         }
     }
 
@@ -176,13 +240,15 @@ class ImageSelect {
                 this.exportSelectedButton.style.display = 'block';
             } else {
                 this.exportSelectedButton.style.display = 'none';
+                // 隐藏导出按钮时也隐藏格式菜单
+                this.hideExportFormatMenu();
             }
         }
     }
 
-    // 导出选中的图片
+    // 导出选中的图片 (include.json 格式)
     exportSelectedImages() {
-        console.log("导出选中的图片:", this.selectedImages);
+        console.log("导出选中的图片 (include.json):", this.selectedImages);
 
         if (this.selectedImages.size === 0) {
             return;
@@ -212,8 +278,62 @@ class ImageSelect {
             });
         });
 
+        this.downloadJson(exportData, `emoji-include-${Date.now()}.json`);
+        this.isExporting = false;
+    }
+
+    // 导出选中的图片 (owo 表情包格式)
+    exportOwoFormat() {
+        console.log("导出选中的图片 (owo格式):", this.selectedImages);
+
+        if (this.selectedImages.size === 0) {
+            return;
+        }
+
+        // 防止重复触发
+        if (this.isExporting) {
+            console.log("导出正在进行中，请稍候...");
+            return;
+        }
+
+        this.isExporting = true;
+
+        // 创建符合owo表情包格式的对象
+        // 格式: { "package_name": { "type": "image", "container": { "trigger": "url", ... } } }
+        const packageName = this.getTagFromUrl();
+        const container = {};
+
+        const selectedImages = Array.from(this.selectedImages);
+
+        selectedImages.forEach(image => {
+            // 从文件名提取触发词 (去掉扩展名)
+            const trigger = this.getTriggerFromName(image.name);
+            container[trigger] = image.url;
+        });
+
+        const exportData = {
+            [packageName]: {
+                "type": "image",
+                "container": container
+            }
+        };
+
+        this.downloadJson(exportData, `emoji-owo-${Date.now()}.json`);
+        this.isExporting = false;
+    }
+
+    // 从文件名提取触发词 (去掉扩展名，保留主文件名作为触发词)
+    getTriggerFromName(name) {
+        if (!name) return 'emoji';
+        // 去掉文件扩展名
+        const lastDot = name.lastIndexOf('.');
+        return lastDot > 0 ? name.substring(0, lastDot) : name;
+    }
+
+    // 下载JSON文件的通用方法
+    downloadJson(data, filename) {
         // 转换为格式化的JSON字符串
-        const exportText = JSON.stringify(exportData, null, 2);
+        const exportText = JSON.stringify(data, null, 2);
 
         // 创建Blob对象
         const blob = new Blob([exportText], { type: 'application/json;charset=utf-8' });
@@ -222,7 +342,7 @@ class ImageSelect {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `emoji-${Date.now()}.json`;
+        a.download = filename;
 
         // 触发下载
         document.body.appendChild(a);
@@ -232,7 +352,6 @@ class ImageSelect {
         setTimeout(() => {
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            this.isExporting = false; // 重置导出状态
         }, 100);
     }
 

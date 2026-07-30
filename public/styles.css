@@ -487,3 +487,60 @@ body.dark .notification {
   color: #f0f0f0;
   border: 1px solid rgba(80, 80, 80, 0.5); /* 添加边框 */
 }
+
+/* 导出格式选择菜单样式 */
+.export-format-menu {
+  position: fixed;
+  left: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1001;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+}
+
+.export-format-menu button {
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.export-format-menu button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.export-format-menu button:not(:last-child) {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+/* 深色模式下的导出格式菜单 */
+body.dark .export-format-menu {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(80, 80, 80, 0.5);
+}
+
+body.dark .export-format-menu button {
+  color: #e0e0e0;
+}
+
+body.dark .export-format-menu button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+body.dark .export-format-menu button:not(:last-child) {
+  border-bottom: 1px solid rgba(80, 80, 80, 0.3);
+}
